@@ -7,13 +7,17 @@ class Customer:
 
     def reduce_wallet(self, drink):
         self.wallet -= drink.price
+    
+    def increase_drunkenness(self, drink):
+        self.drunkenness += drink.alcohol_level
 
     def buy_drinks(self, drink, pub, customer):
         if pub.check_underage(customer) or self.drunkenness > 10 or self.wallet < drink.price:
             return
         self.reduce_wallet(drink)
         pub.increase_till(drink)
-        self.drunkenness += drink.alcohol_level
+        self.increase_drunkenness(drink)
+        pub.decrease_stock(drink)
 
     def buy_food(self, food, pub):
         if self.wallet < food.price:

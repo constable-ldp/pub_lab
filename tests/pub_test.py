@@ -35,3 +35,19 @@ class TestPub(unittest.TestCase):
     def test_check_underage__false(self):
         self.assertEqual(False, self.pub.check_underage(self.customer))
 
+    def test_can_find_drink_by_name(self):
+        drinks = self.pub.find_drink_by_name("Tennents")
+        self.assertEqual("Tennents", drinks.name)
+
+    def test_decrease_stock__pass(self):
+        self.pub.decrease_stock('Tennents')
+        self.assertEqual(99, self.drinks.stock)
+
+    def test_decrease_stock__fail(self):
+        self.assertEqual(None, self.pub.decrease_stock('Vodka'))
+
+    def test_total_stock_value(self):
+        new_drink = Drinks('Gin and Tonic', 2.50, 100, 1.5)
+        self.pub.add_new_drink(new_drink)
+        result = self.pub.total_stock_value()
+        self.assertEqual(400, result)
