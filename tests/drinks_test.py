@@ -3,7 +3,7 @@ from classes.drinks import Drinks
 
 class TestDrinks(unittest.TestCase):
     def setUp(self):
-        self.drinks = Drinks('Tennents', 1.50)
+        self.drinks = Drinks('Tennents', 1.50, 100)
 
     def test_has_name(self):
         self.assertEqual('Tennents', self.drinks.name)
