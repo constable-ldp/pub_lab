@@ -1,6 +1,6 @@
 class Pub:
-    def __init__(self, till, drinks):
-        self.name = 'The Royal Mile'
+    def __init__(self, name, till, drinks):
+        self.name = name
         self.till = till
         self.drinks = drinks
 
@@ -9,3 +9,8 @@ class Pub:
 
     def add_new_drink(self, drink):
         self.drinks.append(drink)
+    
+    def check_underage(self, customer):
+        if customer.age < 18:
+            return True
+        return False
