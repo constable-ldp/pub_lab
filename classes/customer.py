@@ -15,4 +15,11 @@ class Customer:
         pub.increase_till(drink)
         self.drunkenness += drink.alcohol_level
 
-    
+    def buy_food(self, food, pub):
+        if self.wallet < food.price:
+            return
+        self.reduce_wallet(food)
+        pub.increase_till(food)
+        self.drunkenness -= food.rejuvenation_level
+        if self.drunkenness <= 0:
+            self.drunkenness = 0

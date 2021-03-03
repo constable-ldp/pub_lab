@@ -2,13 +2,15 @@ import unittest
 from classes.customer import Customer
 from classes.drinks import Drinks
 from classes.pub import Pub
+from classes.food import Food
 
 
 class TestCustomer(unittest.TestCase):
     def setUp(self):
-        self.customer = Customer('Luke', 50.00, 18, 0)
+        self.customer = Customer('Luke', 50.00, 18, 4)
         self.drinks = Drinks('Tennents', 1.50, 100, 3)
         self.pub = Pub( "till you drop", 1000, [self.drinks])
+        self.food = Food ('Fish and Chips', 2.50, 3)
 
     def test_has_name(self):
         self.assertEqual('Luke', self.customer.name)
@@ -27,7 +29,7 @@ class TestCustomer(unittest.TestCase):
         self.customer.buy_drinks(self.drinks, self.pub, self.customer)
         self.assertEqual(48.50, self.customer.wallet)
         self.assertEqual(1001.50, self.pub.till)
-        self.assertEqual(3, self.customer.drunkenness)
+        self.assertEqual(7, self.customer.drunkenness)
 
     def test_buy_drinks__fail_underage(self):
         customer = Customer('Anakin', 40.00, 16, 0)
@@ -40,3 +42,15 @@ class TestCustomer(unittest.TestCase):
     def test_buy_drinks__fail_skint(self):
         customer = Customer('Obi Wan', 1.00, 19, 3)
         self.assertEqual(None, self.customer.buy_drinks(self.drinks, self.pub, customer))
+
+    def test_buy_food__pass(self):
+        self.customer.buy_food(self.food, self.pub)
+        self.assertEqual(47.50, self.customer.wallet)
+        self.assertEqual(1002.50, self.pub.till)
+        self.assertEqual(1, self.customer.drunkenness)
+
+    def test_buy_food__fail_skint(self):
+        self.customer = Customer('Obi Wan', 1.00, 19, 3)
+        self.assertEqual(None, self.customer.buy_food(self.food, self.pub))
+
+
